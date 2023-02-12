@@ -26,7 +26,11 @@ export class AuthController {
                 const saveAccount = await newAccount.save()
                 return response.status(201).json({ msg: " your Account Created Successfully " })
             } catch (error) {
+<<<<<<< HEAD
                
+=======
+                
+>>>>>>> a3d8a7947461b2c0969124f4a8754fbec390f377
                 return response.status(500).json({ msg: "failed To create Account"})
             }
 
