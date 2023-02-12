@@ -1,5 +1,6 @@
 import { videoModel } from "../Models/video.model.js"
 import { userModel } from '../Models/user.model.js'
+import { playlistModel } from '../Models/playList.model'
 import { commentModel } from '../Models/comment.model.js'
 import fs from 'fs'
 import formidable from "formidable"
@@ -229,5 +230,41 @@ export class VideoController {
 
         return response.status(200).json(results)
 
+    }
+
+
+     async createPlayList(request,response){
+        const token = request.token
+        const name=request.params.name
+        const newPlaylist = new playlistModel({
+
+            owner:token._id,
+            playlistname:name
+
+        })
+
+        const savePlaylist = await newPlaylist.save()
+        return response.status(200).json({msg :"platlist is created"})
+
+
+
+
+    }
+
+
+    addToPlayList(request,response){
+        const token = request.token;
+        const video = request.params.id
+
+        playlistModel.findOneAndUpdate({
+            owner:token._id
+        },{$push:{videos:video}},{new:true},(error,doc)=>{
+            if(err){
+                return response.status(500).json({msg :"Network Error "})
+            }
+
+            return response.status(200).json({msg :"video added"})
+        })
+        
     }
 }

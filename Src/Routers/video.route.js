@@ -53,4 +53,14 @@ router.get('/api/video-view-count/:id' ,(request, response) => {
     Controller.getViewByLocataion(request, response)
 })
 
+
+router.get('/api/video-playlist-create/:name' ,Authenticate,(request, response) => {
+    Controller.createPlayList(request, response)
+})
+
+router.get('/api/playlist-add/:id',Authenticate ,(request, response) => {
+    Controller.addToPlayList(request, response)
+})
+
+
 export default router 
